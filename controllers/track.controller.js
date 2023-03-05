@@ -37,16 +37,16 @@ const trackController = {
   },
 
   /**
-   * 
-   * @param {Request} req 
-   * @param { Response} res 
+   *
+   * @param {Request} req
+   * @param { Response} res
    */
   create: async (req, res) => {
     const data = req.body;
 
     const track = await trackService.create(data);
 
-    res.location('/track/'+ track.id);
+    res.location("/track/" + track.id);
     res.status(201).json(new SuccessResponse(track, 201));
   },
 
