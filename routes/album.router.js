@@ -63,7 +63,7 @@ albumRouter
     bodyValidation(albumValidator),
     albumController.update
   )
-  .patch( bodyValidation(albumCoverValidator),upload.single("cover"), albumController.updateCover)
+  .patch( bodyValidation(albumCoverValidator), upload.single("cover"), albumController.updateCover)
   // .delete(albumController.delete)
   .delete(authJwt(["Admin"]), albumController.delete);
 

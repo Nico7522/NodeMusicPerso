@@ -56,6 +56,15 @@ module.exports = (sequelize) => {
           isIn: [["User", "Admin"]],
         },
       },
+      avatar : {
+        type : DataTypes.STRING,
+        allowNull: true,
+        defaultValue: "./img.jpg",
+        validate : {
+          notEmpty: true
+        },
+
+      }
     },
     {
       tableName: "User",

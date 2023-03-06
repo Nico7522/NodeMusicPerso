@@ -27,6 +27,19 @@ const userService = {
     });
     return user[0] === 1;
   },
+
+  updateAvatar: async (userId, filename) => {
+    const data = {
+      avatar : `public/images/avatars/${filename}`
+    }
+    console.log('les datas' , data);
+
+    const updatedRow = await db.User.update( data , {
+      where : { id: userId }
+  })
+    return updatedRow[0] === 1;
+  },
+
   delete: async (id) => {
     const user = await db.User.destroy({
       where: { id },

@@ -64,6 +64,28 @@ const userController = {
     }
     res.sendStatus(204);
   },
+/**
+   * @param {Request} req
+   * @param {Response} res
+   */
+  updateAvatar: async (req, res) => {
+    const userId = req.user.id
+    // console.log('req ID', req.params.id);
+    // console.log('user ID', userId);
+    if (parseInt(req.params.id) !== userId) {
+      res.status(404).json(new ErrorResponse("Vous ne pouvez pas modifier cet avatar", 404));
+    }
+   
+    const filename = req.file.filename
+    const isUpdated = await userService.updateAvatar(userId, filename)
+
+    if (!isUpdated) {
+      res.status(404).json(new ErrorResponse("Impossible de modifier l'avatar", 404));
+      
+    }
+    res.location = ("/user/" + userId);
+    res.status(201).json(new SuccessResponse("Avatar modifié", 201))
+  },
   /**
    * @param {Request} req
    * @param {Response} res
