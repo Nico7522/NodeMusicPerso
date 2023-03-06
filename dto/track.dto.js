@@ -9,7 +9,7 @@ class TrackDTO {
     this.genre = Genre;
     this.albums = Albums ? Albums.map(album => new AlbumDTO(album)) : [];
     this.artists = Artists ? Artists.map(artist => new ArtistTrackDTO(artist)): [];
-    this.like = Users ? Users.map(user => new UserDTO(user)): [];
+    this.like = Users ? Users.length: [];
   }
 }
 
