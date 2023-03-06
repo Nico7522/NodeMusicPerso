@@ -99,7 +99,11 @@ const trackController = {
     const userId = req.user.id;
     const like = await trackService.like(trackId, userId);
 
-    res.location("/track/" + trackId + "/like");
+    if (!like) {
+      res.sendStatus(404);
+      return;
+    }
+    // res.location("/track/" + trackId + "/like");
     res.status(201).json(new LikeResponse("Le titre a bien été like !", 201));
   },
 };

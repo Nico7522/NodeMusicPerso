@@ -1,5 +1,5 @@
-const {TrackDTO} = require("../dto/track.dto");
-const { Genre, Album, Artist } = require("../models");
+const { TrackDTO } = require("../dto/track.dto");
+const { Genre, Album, Artist, User } = require("../models");
 const db = require("../models");
 
 const trackService = {
@@ -8,7 +8,7 @@ const trackService = {
       distinct: true,
       offset: offset,
       limit: limit,
-      include: [Genre, Album, Artist],
+      include: [Genre, Album, Artist, User],
     });
 
     return {
@@ -36,11 +36,14 @@ const trackService = {
     // Track.addArtist()
     try {
       track = await db.Track.create(trackToCreate, { transaction });
-      console.log('log 1', track);
+      console.log("log 1", track);
       await track.addAlbum(trackToCreate.albums, { transaction });
-      console.log('log 2', track);
+      console.log("log 2", track);
       for (const artist of trackToCreate.artists) {
-        await track.addArtist(artist.id, { through: { feat: artist.feat }, transaction });
+        await track.addArtist(artist.id, {
+          through: { feat: artist.feat },
+          transaction,
+        });
       }
 
       await transaction.commit();
@@ -68,24 +71,30 @@ const trackService = {
     return trackDeleted[0] === 1;
   },
 
-  like : async (trackId, userId) => {
+  like: async (trackId, userId) => {
     const transaction = await db.sequelize.transaction();
+    // Récup de la track via son ID
     const track = await db.Track.findByPk(trackId);
+    // Récup de l'user via son ID
     const user = await db.User.findByPk(userId);
-   
+
     let like;
 
     try {
-      console.log(trackId, userId);
+      console.log(trackId, track);
+      console.log("track id", track);
+      console.log("USER id", user);
+      // Ajout du lien dans la table Many to Many User-track
       like = await track.addUser(user, { transaction });
-      console.log(like);
+      console.log("le like :", like);
       await transaction.commit();
+      // Renvoie du résultat
       return like;
     } catch (error) {
       await transaction.rollback();
       return null;
     }
-  }
+  },
 };
 
 module.exports = trackService;

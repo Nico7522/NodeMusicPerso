@@ -23,7 +23,7 @@ const authJwt = (roles) => {
         //Si pas de token -> l'utilisateur n'est pas connecté
         //On lui renvoie une erreur unauthorized 401
 
-        if (!token) {
+        if (!token || token === '' || token === undefined) {
             res.status(401).json(new ErrorResponse("Vous devez être connecté", 401))
         }
         //On essaie de décoder le token
