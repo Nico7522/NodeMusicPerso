@@ -89,6 +89,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -344,7 +365,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/track/16/like",
+							"raw": "http://localhost:8080/api/track/13/like",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -353,39 +374,8 @@
 							"path": [
 								"api",
 								"track",
-								"16",
+								"13",
 								"like"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create user",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstname\": \"Nico\",\r\n    \"lastname\": \"Ddbbo\",\r\n    \"email\": \"nico@gmail.com\",\r\n    \"password\": \"Testtest123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/auth/register/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"auth",
-								"register",
-								""
 							]
 						}
 					},
@@ -401,6 +391,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"nicolas\",\r\n    \"lastname\" : \"daddabbo\",\r\n    \"email\": \"nicolas.d'addabbo@gmail.com\",\r\n    \"password\": \"Testtest123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/auth/register/",
 							"protocol": "http",
@@ -435,7 +434,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"nico@gmail.com\",\r\n    \"password\": \"Testtest123\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"nico1@gmail.com\",\r\n    \"password\": \"Testtest123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -485,7 +484,7 @@
 								{
 									"key": "cover",
 									"type": "file",
-									"src": "/E:/DEV/NodeAPIMusic-master/public/images/covers/sopico.jpg"
+									"src": "/E:/DEV/NodeAPIMusic-master/public/images/covers/icone.jpg"
 								}
 							]
 						},
@@ -499,6 +498,131 @@
 							"path": [
 								"api",
 								"album",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch user avatar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6IlVzZXIiLCJpYXQiOjE2NzgxMTY5NDgsImV4cCI6MTcwOTY1Mjk0OCwiYXVkIjoiQW5ndWxhck11c2ljIiwiaXNzIjoiTXVzaWNBUEkifQ.CV5A7C204sSNNZqMhcPQuB0O474uOE3b2A2rZjY4yJcu-tXBlOR1HiIQ39Wb2jt5dlu0SOZ39d6VFdRjfE3eZA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/E:/DEV/NodeAPIMusic-master/public/images/avatars/avatar.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/user/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update album",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/album/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"album",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update genre",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/genre/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genre",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update artist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/artist/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"artist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update track",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/track/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"track",
 								"1"
 							]
 						}

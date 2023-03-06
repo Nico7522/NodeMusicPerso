@@ -32,7 +32,7 @@ userRouter.route("/:id")
   // .put(bodyValidation(updateValidator),userController.update)
   .put(authJwt(),bodyValidation(updateValidator),userController.update)
   // .delete(userController.delete);
-  .patch(authJwt(["User"]) ,upload.single('avatar') ,userController.updateAvatar)
+  .patch(authJwt(["User", "Admin"]) ,upload.single('avatar') ,userController.updateAvatar)
   .delete(authJwt(["Admin"]), userController.delete);
 
 module.exports = userRouter;

@@ -72,7 +72,7 @@ const userController = {
     const userId = req.user.id
     // console.log('req ID', req.params.id);
     // console.log('user ID', userId);
-    if (parseInt(req.params.id) !== userId) {
+    if ((parseInt(req.params.id) !== userId) && req.user.role !== "Admin") {
       res.status(404).json(new ErrorResponse("Vous ne pouvez pas modifier cet avatar", 404));
     }
    
