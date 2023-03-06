@@ -1,5 +1,5 @@
 const { Request, Response } = require("express");
-const albumService  = require("../services/album.service");
+const albumService = require("../services/album.service");
 const {
   SuccessArrayResponse,
   SuccessResponse,
@@ -59,6 +59,14 @@ const albumController = {
       return;
     }
     res.sendStatus(201);
+  },
+   /**
+   * Delete
+   * @param { Request } req
+   * @param { Response } res
+   */
+  updateCover: async (req, res) => {
+    res.sendStatus(501);
   },
 
   /**

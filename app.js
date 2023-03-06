@@ -28,6 +28,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Middleware app-lvl
 app.use(express.json()); // Permet d'utiliser du json en post, put, patch (body en json)
+app.use(express.static('public'));
 
 // Router
 const router = require("./routes");
