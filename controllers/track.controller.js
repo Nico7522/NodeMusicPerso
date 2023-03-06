@@ -2,6 +2,7 @@ const { Request, Response } = require("express");
 const db = require("../models");
 const trackService = require("../services/track.service");
 const userService = require("../services/user.service");
+const { ErrorResponse } = require("../utils/error.response");
 const {
   SuccessArrayResponse,
   SuccessResponse,
@@ -105,6 +106,28 @@ const trackController = {
     }
     // res.location("/track/" + trackId + "/like");
     res.status(201).json(new LikeResponse("Le titre a bien été like !", 201));
+  },
+
+  /**
+   * Like
+   * @param { Request } req
+   * @param { Response } res
+   */
+  dislike: async (req, res) => {
+    const trackId = req.params.id;
+    const userId = req.user.id;
+    const dislike = await trackService.dislike(trackId, userId);
+    if (!dislike) {
+      res
+        .status(404)
+        .json(
+          new ErrorResponse(
+            "TrackId or UserId not found or link is not present",
+            404
+          )
+        );
+    }
+    res.sendStatus(204);
   },
 };
 

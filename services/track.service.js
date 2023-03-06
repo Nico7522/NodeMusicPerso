@@ -95,6 +95,28 @@ const trackService = {
       return null;
     }
   },
+
+  dislike: async (trackId, userId) => {
+    const transaction = await db.sequelize.transaction();
+
+    try {
+      const track = await db.Track.findByPk(trackId);
+      const user = await db.User.findByPk(userId);
+      // Vérification si il y a bien un lien entre les deux
+      const link = await track.hasUser(user, { transaction });
+      if (!link) {
+        await transaction.commit();
+        return null;
+      }
+      // Enlever le lien en DB
+      const nbRows = await track.removeUser(user, { transaction });
+      await transaction.commit()
+      return nbRows === 1;
+    } catch (error) {
+      await transaction.rollback();
+      return null;
+    }
+  },
 };
 
 module.exports = trackService;

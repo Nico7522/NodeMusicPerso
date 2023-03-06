@@ -19,4 +19,8 @@ trackRouter.route('/:id')
 
 trackRouter.route('/:id/like')
     .post(authJwt(),trackController.like)
+    
+
+trackRouter.route('/:id/dislike')
+    .delete(authJwt(), trackController.dislike)    
 module.exports = trackRouter;
