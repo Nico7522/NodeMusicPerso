@@ -35,6 +35,18 @@ const albumService = {
         return isUpdatedRow[0] === 1;
     },
 
+    updateCover : async (id, filename ) => {
+        const data = {
+            cover : `/images/covers/${filename}`
+        }
+       const updatedRow = await db.Album.update( data , {
+            where : { id }
+        })
+
+        return updatedRow[0] === 1;
+
+    },
+
     delete: async (id) => {
         const isDeleted = await db.Album.destroy({
             where: { id }

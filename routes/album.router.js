@@ -3,7 +3,7 @@ const albumController = require("../controllers/album.controller");
 const authJwt = require("../middlewares/auth.jwt.middleware");
 const bodyValidation = require("../middlewares/body.validator");
 const pagination = require("../middlewares/pagination.middleware");
-const albumValidator = require("../validators/album.validator");
+const {albumValidator, albumCoverValidator} = require("../validators/album.validator");
 
 // ----- Config de multer -----
 // Import de multer
@@ -63,7 +63,7 @@ albumRouter
     bodyValidation(albumValidator),
     albumController.update
   )
-  .patch(upload.single("cover"), albumController.updateCover)
+  .patch( bodyValidation(albumCoverValidator),upload.single("cover"), albumController.updateCover)
   // .delete(albumController.delete)
   .delete(authJwt(["Admin"]), albumController.delete);
 

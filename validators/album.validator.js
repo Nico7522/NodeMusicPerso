@@ -5,6 +5,10 @@ const albumValidator = yup.object({
     cover: yup.string().trim().nullable()
 }) 
 
-module.exports = albumValidator;
+const albumCoverValidator = yup.object({
+    cover : yup.mixed()
+})
+
+module.exports = {albumValidator, albumCoverValidator};
 
    

@@ -1,8 +1,10 @@
 const { Request, Response } = require("express");
 const albumService = require("../services/album.service");
+const { ErrorResponse } = require("../utils/error.response");
 const {
   SuccessArrayResponse,
   SuccessResponse,
+  LikeResponse,
 } = require("../utils/success.response");
 
 const albumController = {
@@ -66,7 +68,20 @@ const albumController = {
    * @param { Response } res
    */
   updateCover: async (req, res) => {
-    res.sendStatus(501);
+    // res.sendStatus(501);
+    // Récupérer l'id de l'album
+    const { id } = req.params
+
+    // Récupérer le nom du fichier
+    const filename = req.file.filename
+    // Appeler le service en lui fournisant l'id et le nom du fichier 
+    const isUpdated = await albumService.updateCover(id, filename)
+
+    if (!isUpdated) {
+      res.status(404).json(new ErrorResponse("Album not found", 404))
+    }
+    res.location = ("/album/" + id);
+    res.status(201).json(new SuccessResponse("Cover modifiée avec succès", 201))
   },
 
   /**
