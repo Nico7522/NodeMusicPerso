@@ -1,5 +1,6 @@
 const { Request, Response } = require("express");
 const genreService = require("../services/genre.service");
+const { ErrorResponse } = require("../utils/error.response");
 const { SuccessArrayResponse, SuccessResponse } = require("../utils/success.response");
 
 const genreController = {
@@ -51,6 +52,11 @@ const genreController = {
     // res.sendStatus(501);
     // Récupération des données du genre qu'on veut créer
     const data = req.body;
+
+    const nameAlreadyExists = await genreService.nameAlreadyExists(data.name)
+    if (nameAlreadyExists) {
+      return res.status(409).json(new ErrorResponse('le nom du genre existe déjà', 409 ))
+    }
     // TODO -> Mettre en place un middleware qui valide ces données
     const genre = await genreService.create(data);
 
@@ -72,6 +78,10 @@ const genreController = {
     const { id } = req.params;
     //Récupération du body
     const data = req.body;
+    const nameAlreadyExists = await genreService.nameAlreadyExists(data.name)
+    if (nameAlreadyExists) {
+      return res.status(409).json(new ErrorResponse('le nom du genre existe déjà', 409 ))
+    }
     const isUpdated = await genreService.update(id, data);
     // Si l'update n'a pas eu lieu, id non trouvé
     if (!isUpdated) {

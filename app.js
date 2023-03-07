@@ -1,5 +1,6 @@
 // Configuration des variables d'environnement
 require("dotenv").config();
+const cors = require('cors')
 
 // Import d'express
 const express = require("express");
@@ -8,6 +9,7 @@ require("express-async-errors");
 
 // Création du serveur
 const app = express();
+app.use(cors());
 
 // Import db
 const db = require("./models");

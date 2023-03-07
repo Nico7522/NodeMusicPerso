@@ -9,7 +9,7 @@ const genreService = {
     const { rows, count } = await db.Genre.findAndCountAll({
       distinct: true,
       offset: offset, //offset : 12 ou offset => simplifié en offset
-      limit: limit
+      limit: limit,
     });
 
     // Transformation en GenreDTO
@@ -43,6 +43,11 @@ const genreService = {
       where: { id },
     });
     return nbDeletedRow === 1; // Est-ce que nbRow supprimées = 1 ? Si oui delete réussi, si non delete raté
+  },
+
+  nameAlreadyExists: async (name) => {
+    const genre = await db.Genre.findOne({ where: { name } });
+    return genre ? true : false;
   },
 };
 

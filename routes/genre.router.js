@@ -18,14 +18,14 @@ genreRouter
   // Pour utiliser un middleware
   .get(pagination(), genreController.getAll)
   // .post(bodyValidation(genreValidator) ,genreController.create);
-  .post(authJwt(["User"]), bodyValidation(genreValidator) ,genreController.create);
+  .post(bodyValidation(genreValidator) ,genreController.create);
 
 genreRouter
   .route("/:id")
   .get(genreController.getById)
-  // .put(bodyValidation(genreValidator) ,genreController.update)
-  .put(authJwt(["Admin"]), bodyValidation(genreValidator) ,genreController.update)
-  // .delete(genreController.delete);
-  .delete(authJwt(["Admin"]), genreController.delete);
+  .put(bodyValidation(genreValidator) ,genreController.update)
+  // .put(authJwt(["Admin"]), bodyValidation(genreValidator) ,genreController.update)
+  .delete(genreController.delete);
+  // .delete(authJwt(["Admin"]), genreController.delete);
 
 module.exports = genreRouter;
