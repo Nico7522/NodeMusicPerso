@@ -8,7 +8,7 @@ const { DB_SERVER, DB_DATABASE, DB_USERNAME, DB_PASSWORD } = process.env;
 
 const sequelize = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
   host: DB_SERVER,
-  dialect: "mariadb", // Pour travailler avec Sequelize, à changer si on veut un autre language et installer la librairie correspondante
+  dialect: "mssql", // Pour travailler avec Sequelize, à changer si on veut un autre language et installer la librairie correspondante
 });
 
 // Création de l'objet DB

@@ -6,14 +6,14 @@ const pagination = require("../middlewares/pagination.middleware");
 const artistValidator = require('../validators/artist.validator');
 artistRouter.route('/')
     .get(pagination(),artistController.getAll)
-    // .post(bodyValidation(artistValidator) ,artistController.create)
-    .post(authJwt(["User"]),bodyValidation(artistValidator) ,artistController.create)
+      .post(bodyValidation(artistValidator) ,artistController.create)
+    // .post(authJwt(["User"]),bodyValidation(artistValidator) ,artistController.create)
 
 artistRouter.route('/:id')
     .get(artistController.getById)
-    // .put(bodyValidation(artistValidator) ,artistController.update)
-    .put(authJwt(["Admin"]), bodyValidation(artistValidator) ,artistController.update)
-    // .delete(artistController.delete)
-    .delete(authJwt(["Admin"]), artistController.delete)
+    .put(bodyValidation(artistValidator) ,artistController.update)
+    // .put(authJwt(["Admin"]), bodyValidation(artistValidator) ,artistController.update)
+    .delete(artistController.delete)
+    // .delete(authJwt(["Admin"]), artistController.delete)
 
 module.exports = artistRouter;
