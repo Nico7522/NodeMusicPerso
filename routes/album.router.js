@@ -47,24 +47,24 @@ const upload = multer({ storage });
 albumRouter
   .route("/")
   .get(pagination(), albumController.getAll)
-  // .post(bodyValidation(albumValidator),albumController.create)
-  .post(
-    authJwt(["User"]),
-    bodyValidation(albumValidator),
-    albumController.create
-  );
+  .post(bodyValidation(albumValidator),upload.single('cover'), albumController.create)
+  // .post(
+  //   authJwt(["User"]),
+  //   bodyValidation(albumValidator),
+  //   albumController.create
+  // );
 
 albumRouter
   .route("/:id")
   .get(albumController.getById)
-  // .put(bodyValidation(albumValidator),albumController.update)
-  .put(
-    authJwt(["Admin"]),
-    bodyValidation(albumValidator),
-    albumController.update
-  )
+  .put(bodyValidation(albumValidator),albumController.update)
+  // .put(
+  //   authJwt(["Admin"]),
+  //   bodyValidation(albumValidator),
+  //   albumController.update
+  // )
   .patch( bodyValidation(albumCoverValidator), upload.single("cover"), albumController.updateCover)
-  // .delete(albumController.delete)
-  .delete(authJwt(["Admin"]), albumController.delete);
+  .delete(albumController.delete)
+  // .delete(authJwt(["Admin"]), albumController.delete);
 
 module.exports = albumRouter;
